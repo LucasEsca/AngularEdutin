@@ -14,6 +14,9 @@ export class AddComponent implements OnInit {
     constructor(private fb:FormBuilder){}
 
     form!: FormGroup;
+    isActive: boolean=true;
+    taskActive!: boolean;
+    tasks: any[]=['Tarea1', 'Tarea2', 'Tarea3']
 
     ngOnInit(): void {
         this.form = this.fb.group({
@@ -23,8 +26,11 @@ export class AddComponent implements OnInit {
     }
 
     sendTaskTitle(){
-        if(this.form.valid){
+        if(this.form.valid && this.form.get('title')?.value !== ''){
+            this.taskActive = false
             console.log(this.form.value.title)
+        }else{
+            this.taskActive = true
         }
     }
 
