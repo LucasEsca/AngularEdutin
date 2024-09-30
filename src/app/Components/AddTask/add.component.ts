@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector : 'app-addTask',
@@ -8,11 +9,40 @@ import { Component } from "@angular/core";
 
 })
 
-export class AddComponent {
+export class AddComponent implements OnInit {
+
+    constructor(private fb:FormBuilder){}
+
+    form!: FormGroup;
+
+    ngOnInit(): void {
+        this.form = this.fb.group({
+            title: new FormControl('', [Validators.required, Validators.maxLength(10)])
+        })
+        
+    }
+
+    sendTaskTitle(){
+        if(this.form.valid){
+            console.log(this.form.value.title)
+        }
+    }
+
+
+
+
+
+
 
     numberTask: number = 10
     titleTask: string = ''
     activedButton: boolean = true
+
+    sendData(form:NgForm){
+        if(form.valid){
+            console.log(this.titleTask)
+        }
+    }
 
     sendTask(){
         const sixeTitlteTask=this.titleTask.split('')
