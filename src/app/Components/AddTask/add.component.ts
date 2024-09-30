@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { Task } from "../../Models/task.interface";
 
 @Component({
     selector : 'app-addTask',
@@ -16,7 +17,39 @@ export class AddComponent implements OnInit {
     form!: FormGroup;
     isActive: boolean=true;
     taskActive!: boolean;
-    tasks: any[]=['Tarea1', 'Tarea2', 'Tarea3']
+    numberTasks!: number;
+    tasks: Task[] =[
+    {
+        id:1,
+        title: 'Tarea1',
+        completed: false
+    },
+    {
+        id:2,
+        title: 'Tarea2',
+        completed: false
+    },
+    {
+        id:3,
+        title: 'Tarea3',
+        completed: false
+    },
+    {
+        id:4,
+        title: 'Tarea4',
+        completed: false
+    },
+    {
+        id:5,
+        title: 'Tarea5',
+        completed: false
+    },
+    {
+        id:1,
+        title: 'Tarea1',
+        completed: false
+    },
+    ]
 
     ngOnInit(): void {
         this.form = this.fb.group({
@@ -34,13 +67,20 @@ export class AddComponent implements OnInit {
         }
     }
 
+    markTaskCompleted(task: Task) : void{
+        task.completed = !task.completed
+    }
+
+    delete(id :number): void{
+        this.tasks = this.tasks.filter((task) => task.id != id)
+        this.numberTasks = this.tasks.length;
+    }
 
 
 
 
 
-
-    numberTask: number = 10
+    numberTask: number = 3;
     titleTask: string = ''
     activedButton: boolean = true
 
