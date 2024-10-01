@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { NgForm, FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Task } from "../../Models/task.interface";
 
@@ -12,44 +12,14 @@ import { Task } from "../../Models/task.interface";
 
 export class AddComponent implements OnInit {
 
+    @Output() taskAdded: EventEmitter<Task> = new EventEmitter<Task>()
+
     constructor(private fb:FormBuilder){}
 
     form!: FormGroup;
     isActive: boolean=true;
     taskActive!: boolean;
-    numberTasks!: number;
-    tasks: Task[] =[
-    {
-        id:1,
-        title: 'Tarea1',
-        completed: false
-    },
-    {
-        id:2,
-        title: 'Tarea2',
-        completed: false
-    },
-    {
-        id:3,
-        title: 'Tarea3',
-        completed: false
-    },
-    {
-        id:4,
-        title: 'Tarea4',
-        completed: false
-    },
-    {
-        id:5,
-        title: 'Tarea5',
-        completed: false
-    },
-    {
-        id:1,
-        title: 'Tarea1',
-        completed: false
-    },
-    ]
+    tasks: Task[] =[]
 
     ngOnInit(): void {
         this.form = this.fb.group({
@@ -60,21 +30,15 @@ export class AddComponent implements OnInit {
 
     sendTaskTitle(){
         if(this.form.valid && this.form.get('title')?.value !== ''){
-            this.taskActive = false
-            console.log(this.form.value.title)
-        }else{
-            this.taskActive = true
+            const newTask: Task ={
+                id: Math.floor(Math.random()*1000),
+                title: this.form.value.title,
+                completed: false
+            };
+            this.taskAdded.emit(newTask)
+            this.form.reset()
         }
-    }
-
-    markTaskCompleted(task: Task) : void{
-        task.completed = !task.completed
-    }
-
-    delete(id :number): void{
-        this.tasks = this.tasks.filter((task) => task.id != id)
-        this.numberTasks = this.tasks.length;
-    }
+        }
 
 
 

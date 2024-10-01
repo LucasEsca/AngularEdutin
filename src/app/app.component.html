@@ -1,3 +1,10 @@
 <router-outlet />
-<app-addTask />
-<app-list-task *ngIf="isDestroyed" />
+<app-addTask 
+(taskAdded)="addTask($event)"
+
+/>
+<app-list-task 
+[listTasks]="tasks"
+(taskCompleted)="markTaskCompleted($event)"
+(taskDeleted)="deleteTask($event)"
+/>

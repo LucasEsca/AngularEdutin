@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Task } from './Models/task.interface';
 
 @Component({
   selector: 'app-root',
@@ -6,18 +7,16 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  isDestroyed: boolean = true
+  tasks: Task[] =[]
 
-  countDown: number;
-  intervalId: any;
-  constructor(){
-      this.countDown = 10;
-      this.intervalId = setInterval(() =>{
-          this.countDown--;
-          if(this.countDown === 0) {
-              clearInterval(this.intervalId)
-              this.isDestroyed = false
-          }
-      },1000)
-  }
+    addTask(task: Task): void{
+        this.tasks.push(task)
+    }
+    markTaskCompleted(task:Task): void{
+      task.completed = !task.completed
+    }
+
+    deleteTask(id:number):void{
+      this.tasks = this.tasks.filter((task) => task.id !== id)
+    }
 }
