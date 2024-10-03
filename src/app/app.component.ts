@@ -1,22 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Task } from './Models/task.interface';
+import { TasksService } from './Services/tasks.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  constructor(private service: TasksService){}
+
+  ngOnInit(): void {
+      this.tasks = this.service.getTasks()
+  }
+
   tasks: Task[] =[]
 
     addTask(task: Task): void{
-        this.tasks.push(task)
+        this.service.addTask(task)
     }
     markTaskCompleted(task:Task): void{
-      task.completed = !task.completed
+      this.service.completeTask(task.id)
     }
 
     deleteTask(id:number):void{
-      this.tasks = this.tasks.filter((task) => task.id !== id)
+      this.service.deleteTask(id)
     }
 }
