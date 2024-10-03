@@ -10,6 +10,7 @@ import { AddComponent } from './Components/AddTask/add.component';
 import { ListTaskComponent } from './Components/list-task/list-task.component';
 import { ConfirmDeleteDirective } from './Directive/confirm-delete.directive';
 import { StatusTaskDirective } from './Directive/status-task.directive';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,16 +18,18 @@ import { StatusTaskDirective } from './Directive/status-task.directive';
     AddComponent,
     ListTaskComponent,
     StatusTaskDirective,
-    ConfirmDeleteDirective
+    ConfirmDeleteDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

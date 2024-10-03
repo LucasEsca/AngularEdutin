@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../Models/task.interface';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { Task } from '../Models/task.interface';
 export class TasksService {
 
   tasks: Task[] = []
+  taskChanged = new Subject<Task[]>
 
   constructor() {
     this.getTasks()
@@ -20,11 +22,13 @@ export class TasksService {
   addTask(task: Task):void{
     this.tasks.push(task)
     this.setLocalStorage()
+    this.taskChanged.next(this.tasks.slice())
   }
 
   deleteTask(id: number):void{
     this.tasks = this.tasks.filter(task => task.id !== id)
     this.setLocalStorage()
+    this.taskChanged.next(this.tasks.slice())
   }
 
   completeTask(id:number): void{
@@ -32,6 +36,7 @@ export class TasksService {
     if(task){
       task.completed = !task.completed
       this.setLocalStorage()
+      this.taskChanged.next(this.tasks.slice())
     }
   }
 

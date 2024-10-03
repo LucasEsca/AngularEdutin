@@ -2,43 +2,57 @@
     color: white;
 }
 
-.container_task{
-    margin: 0 auto;
-    width: 50%;
+
+
+.flex{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #3f3f3f;
-    overflow-y: auto;
-    min-height: 450px;
+    gap: 20px;
+    width: 100%;
 
-    .task{
-        padding: 10px;
-        margin: 10px;
-        border: 1px solid #222;
-        width: 90%;
-        position: relative;
-        color: white;
-
-        .task_delete{
-            position: absolute;
-            right: 10px;
-            top: 15%;
-            background-color: red;
-            border: none;
-            padding: 5px;
-            outline: none;
+    .container_task{
+        margin: 0 auto;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #3f3f3f;
+        overflow-y: auto;
+        max-height: 450px;
+    
+        .task{
+            padding: 30px;
+            margin: 10px;
+            border: 1px solid #222;
+            width: 90%;
+            position: relative;
             color: white;
+    
+            .status{
+                position: absolute;
+                right: 10px;
+                top: 5px;
+            }
 
-        }
-
-        .task_check{
-            position: absolute;
-            right: 100px;
-        }
-
-        .subrayar{
-            text-decoration: line-through;
+            .task_delete{
+                position: absolute;
+                right: 10px;
+                top: 15%;
+                background-color: red;
+                border: none;
+                padding: 5px;
+                outline: none;
+                color: white;
+    
+            }
+    
+            .task_check{
+                position: absolute;
+                right: 100px;
+            }
+    
+            .subrayar{
+                text-decoration: line-through;
+            }
         }
     }
 }
